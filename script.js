@@ -118,6 +118,30 @@ function initGallery(){
   const preview=document.getElementById('memPreview');
   const cancel=document.getElementById('memCancel');
   let imageData=null;
+   const imgOverlay = document.getElementById('imgOverlay');
+const imgPreviewFull = document.getElementById('imgPreviewFull');
+const closeImg = document.getElementById('closeImg');
+
+// open image
+grid.addEventListener('click', (e) => {
+  const btn = e.target.closest('.view');
+  if(!btn) return;
+
+  const src = btn.dataset.src;
+  imgPreviewFull.src = src;
+  imgOverlay.classList.add('show');
+});
+
+// close image
+closeImg.addEventListener('click', () => {
+  imgOverlay.classList.remove('show');
+});
+
+imgOverlay.addEventListener('click', (e) => {
+  if(e.target === imgOverlay){
+    imgOverlay.classList.remove('show');
+  }
+});
 
   function render(){
     const mems=store.get('memories',[]);
@@ -130,14 +154,24 @@ function initGallery(){
       card.className='glass mem-card';
       card.style.animationDelay=(idx*70)+'ms';
       card.innerHTML=`
-        <div class="img"><img src="${m.image}" alt="memory"></div>
-        <div class="body">
-          <div class="date"><i class="fa-solid fa-calendar"></i>${formatDate(m.date)}</div>
-          <div class="desc">${escapeHtml(m.desc)}</div>
-        </div>
-        <button class="edit" data-i="${realIdx}" aria-label="Edit">
-  <i class="fa-solid fa-pen"></i>
-</button>`;
+  <div class="img"><img src="${m.image}" alt="memory"></div>
+
+  <div class="body">
+    <div class="date">
+      <i class="fa-solid fa-calendar"></i>${formatDate(m.date)}
+    </div>
+
+    <div class="desc">${escapeHtml(m.desc)}</div>
+  </div>
+
+  <button class="view" data-src="${m.image}">
+    <i class="fa-solid fa-eye"></i> View Image
+  </button>
+
+  <button class="edit" data-i="${realIdx}" aria-label="Edit">
+    <i class="fa-solid fa-pen"></i>
+  </button>
+`;
       grid.appendChild(card);
     });
     grid.querySelectorAll('.edit').forEach(b=>b.addEventListener('click',e=>{
