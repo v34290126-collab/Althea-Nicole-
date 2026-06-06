@@ -442,6 +442,16 @@ max-height: none;}
 .feed-card .msg{font-size:1.02rem;line-height:1.6}
 .feed-card .del{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;transition:.2s}
 .feed-card .del:hover{color:var(--pink)}
+.event-title{
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+
+  color: #ff8fb1; /* purple romantic color */
+  margin: 10px 0 12px;
+
+  letter-spacing: 1px;
+}
 
 /* ===== Timer (countdown) ===== */
 .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:640px;margin:30px auto}
